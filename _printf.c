@@ -19,47 +19,48 @@ int _printf(const char *format, ...)
 	{
 		if (*format == '%')
 		{
-			format++
+			format++;
 			switch (*format)
 			{
-				case 1 'c'			{
-					char num = va_arg(args, char);
-					printf("%c", n);
-				}
-				case 2 's'
+				case 'c':
 				{
-					char str = va_arg(args, char*);
+					char num = va_arg(args, int);
+					putchar(num);
+					break;
+				}
+				case 's':
+				{
+					char* str = va_arg(args, char*);
 					if (str != NULL)
 					{
-						while (*str);
-						printf("%s", str);
-						break;
+						while (*str)
+						{
+							putchar(*str);
+							str++;
+						}
 					}
-				}
-				case 3 '%'
-				{
-					char per = va_arg(args, '%');
-					printf("%%", NULL);
 					break;
 				}
 				default:
 				{
+					char per = va_arg(args, int);
+					putchar(per);
 					break;
 				}
 			}
 		}
 		else
 		{
-			printf("%");
+			putchar(*format);
 		}
 	}
-	va_list(args);
+	va_end(args);
 
 	return (0);
 }
 
 /**
- *  _printf-int - A replica of the printf function that outputs an integer
+ *  _printf_int - A replica of the printf function that outputs an integer
  * va_list: a variadic function
  * va_start: a start for the varidic function
  * args: va_list name
@@ -67,7 +68,7 @@ int _printf(const char *format, ...)
  * return: if true 0 else error
  */
 
-int _printf-int(const int *format, ...)
+int _printf_int(const char *format, ...)
 {
         va_list args;
         va_start(args, format);
@@ -79,22 +80,22 @@ int _printf-int(const int *format, ...)
                         format++;
                         switch (*format)
                         {
-                                case 1 'd'
+				case 'd':
                                 {
                                         int num = va_arg(args, int);
-                                        printf("%d", int);
+                                        printf("%d", num);
                                         break;
                                 }
-                                case 2 'i'
+				case 'i':
                                 {
                                         int numint = va_arg(args, int);
-                                        printf("%i", int);
+                                        printf("%i", numint);
                                         break;
                                 }
-                                case 3 '%'
+				case '%':
                                 {
                                         int per = va_arg(args, int);
-                                        printf("%%", NULL);
+                                        printf("%%", per);
                                         break;
                                 }
                                 default:
@@ -105,10 +106,10 @@ int _printf-int(const int *format, ...)
                 }
                 else
                 {
-                        printf("%");
+                        printf("%c", *format);
                 }
         }
-        va_list(args);
+        va_end(args);
 
         return (0);
 }
