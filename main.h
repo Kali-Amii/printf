@@ -2,6 +2,7 @@
 #define _MAIN_H_
 
 int _printf(const char *format, ...);
+int _printf-int(const int *format, ...);
 
 
 #endif
