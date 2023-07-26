@@ -1,116 +1,36 @@
-#include <stdio.h>
-#include <stdarg.h>
+cat printf.c
 #include "main.h"
 
 /**
- * _printf - A replica of the printf function that outputs a char and string
- * va_list: a variadic function
- * va_start: a start for the varidic function
- * args: va_list name
- * format: first arguement name
- * return: if true 0 else error
+ * _printf - Receives the main string and all the necessary parameters to
+ *      print a formated string.
+ * @format: A string of characters.
+ * Return: Length of characters printed.
  */
 int _printf(const char *format, ...)
 {
+	int len_printed_char;
+	linker linked_list[] = {
+		{"c", print_character},
+		{"s", print_string},
+		{"%", print_percent},
+		{"i", print_integer},
+		{"d", print_integer},
+		{"b", print_base2},
+		{"u", print_unsigned_int},
+		{"o", print_base8},
+		{"x", print_base16_lower},
+		{"X", print_base16_upper},
+		{"r", print_reversed},
+		{"R", rot13},
+		{NULL, NULL}
+	};
 	va_list args;
+
+	if (format == NULL)
+		return (-1);
 	va_start(args, format);
-
-	while (*format)
-	{
-		if (*format == '%')
-		{
-			format++;
-			switch (*format)
-			{
-				case 'c':
-				{
-					char num = va_arg(args, int);
-					putchar(num);
-					break;
-				}
-				case 's':
-				{
-					char* str = va_arg(args, char*);
-					if (str != NULL)
-					{
-						while (*str)
-						{
-							putchar(*str);
-							str++;
-						}
-					}
-					break;
-				}
-				default:
-				{
-					char per = va_arg(args, int);
-					putchar(per);
-					break;
-				}
-			}
-		}
-		else
-		{
-			putchar(*format);
-		}
-	}
+	len_printed_char = linking_func(format, linked_list, args);
 	va_end(args);
-
-	return (0);
+	return (len_printed_char);
 }
-
-/**
- *  _printf_int - A replica of the printf function that outputs an integer
- * va_list: a variadic function
- * va_start: a start for the varidic function
- * args: va_list name
- * format: first argument name
- * return: if true 0 else error
- */
-
-int _printf_int(const char *format, ...)
-{
-        va_list args;
-        va_start(args, format);
-
-        while (*format)
-        {
-                if (*format == '%')
-                {
-                        format++;
-                        switch (*format)
-                        {
-				case 'd':
-                                {
-                                        int num = va_arg(args, int);
-                                        printf("%d", num);
-                                        break;
-                                }
-				case 'i':
-                                {
-                                        int numint = va_arg(args, int);
-                                        printf("%i", numint);
-                                        break;
-                                }
-				case '%':
-                                {
-                                        int per = va_arg(args, int);
-                                        printf("%%", per);
-                                        break;
-                                }
-                                default:
-                                {
-                                        break;
-                                }
-                        }
-                }
-                else
-                {
-                        printf("%c", *format);
-                }
-        }
-        va_end(args);
-
-        return (0);
-}
-
