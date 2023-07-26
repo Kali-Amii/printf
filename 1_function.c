@@ -9,7 +9,7 @@
  * @width: fetch width
  * @precision: Precion specification
  * @size: Size specifier 
- * A function creat3d by Victor and Amara
+ * A function created by Victor and Amara
  * Return: Number of chars printed.
  */
 int print_unsigned(va_list types, char buffer[],

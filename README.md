@@ -1,1 +1,1 @@
-Creating a replica of the printf function in C
+creating a replica of thr printf
